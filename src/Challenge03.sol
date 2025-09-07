@@ -37,6 +37,7 @@ contract Challenge03 {
     }
 
     function burn(address account, uint256 value) public {
+        _spendAllowance(account, msg.sender, value);
         require(account != address(0), "Invalid burner");
         uint256 accountBalance = _balances[account];
         require(accountBalance >= value, "Insufficient balance");
@@ -100,6 +101,7 @@ contract Challenge03 {
     }
 
     function _mint(address account, uint256 value) internal {
+        require(account != address(0));
         _balances[account] += value;
         _totalSupply += value;
         emit Transfer(address(0), account, value);
