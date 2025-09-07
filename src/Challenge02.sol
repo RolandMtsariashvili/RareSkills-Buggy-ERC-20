@@ -39,12 +39,15 @@ contract Challenge02 {
         decimals = _decimals;
     }
 
-    function approve(address owner, address spender, uint256 amount) public {
-        allowance[owner][spender] = amount;
-        emit Approval(owner, spender, amount);
+    function approve(address spender, uint256 amount) public returns(bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
     }
 
     function transfer(address to, uint256 amount) public virtual returns (bool) {
+        require(to != address(0));
+
         balanceOf[msg.sender] -= amount;
 
         unchecked {
@@ -57,6 +60,8 @@ contract Challenge02 {
     }
 
     function transferFrom(address from, address to, uint256 amount) public virtual returns (bool) {
+        require(to != address(0));
+
         uint256 allowed = allowance[from][msg.sender];
 
         if (allowed != type(uint256).max) allowance[from][msg.sender] = allowed - amount;
@@ -75,6 +80,8 @@ contract Challenge02 {
 
 
     function _mint(address to, uint256 amount) internal virtual {
+        require(to != address(0));
+
         totalSupply += amount;
 
         unchecked {
@@ -87,9 +94,7 @@ contract Challenge02 {
     function _burn(address from, uint256 amount) internal virtual {
         balanceOf[from] -= amount;
 
-        unchecked {
-            totalSupply -= amount;
-        }
+        totalSupply -= amount;
 
         emit Transfer(from, address(0), amount);
     }
