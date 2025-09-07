@@ -73,7 +73,6 @@ contract Challenge04 {
     }
 
     function transfer(address to, uint256 value) public returns (bool) {
-        require(!paused, "Challenge4: transfers paused");
         _transfer(msg.sender, to, value);
         return true;
     }
@@ -90,6 +89,7 @@ contract Challenge04 {
     }
 
     function _transfer(address from, address to, uint256 value) internal {
+        require(!paused, "Challenge4: transfers paused");
         require(to != address(0), "Challenge4: transfer to zero address");
 
         uint256 fromBalance = _balances[from];
