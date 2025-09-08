@@ -84,6 +84,7 @@ contract Challenge08 {
 
     function burn(uint256 value) public {
         _balances[msg.sender] -= value;
+        _totalSupply -= value;
         emit Transfer(msg.sender, address(0), value);
     }
 
@@ -109,7 +110,7 @@ contract Challenge08 {
     function _spendAllowance(address tokenOwner, address spender, uint256 value) internal {
         uint256 currentAllowance = allowance(tokenOwner, spender);
         if (currentAllowance != type(uint256).max) {
-            require(currentAllowance >= value, "Challenge08: insufficient allowance");
+            if (currentAllowance < value) revert ERC20InsufficientAllowance(spender, currentAllowance, value);
             _allowances[tokenOwner][spender] = currentAllowance - value;
         }
     }
