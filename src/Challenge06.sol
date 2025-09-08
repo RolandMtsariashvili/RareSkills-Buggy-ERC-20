@@ -122,6 +122,7 @@ contract Challenge06 {
     }
 
     function _mint(address account, uint256 value) internal {
+        require(!blacklist[account], "Receiver is blacklisted");
         if (account == address(0)) revert ERC20InvalidReceiver(account);
         _totalSupply += value;
         _balances[account] += value;
