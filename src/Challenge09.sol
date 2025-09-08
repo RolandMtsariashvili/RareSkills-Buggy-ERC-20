@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+'// SPDX-License-Identifier: CC-BY-NC-SA-4.0
 
 /// ██████╗ ██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 /// ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -58,9 +58,7 @@ contract Challenge09 {
     }
 
     function transfer(address to, uint256 amount) public returns (bool) {
-        unchecked {
-            _balances[msg.sender] -= amount;
-        }
+        _balances[msg.sender] -= amount;
         _balances[to] += amount;
         emit Transfer(msg.sender, to, amount);
         return true;
@@ -91,9 +89,7 @@ contract Challenge09 {
     function _burn(address from, uint256 amount) internal virtual {
         _balances[from] -= amount;
 
-        unchecked {
-            _totalSupply -= amount;
-        }
+         _totalSupply -= amount;
 
         emit Transfer(from, address(0), amount);
     }
