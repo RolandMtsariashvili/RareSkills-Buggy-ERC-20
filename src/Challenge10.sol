@@ -42,7 +42,7 @@ contract Challenge10 {
     }
 
     modifier onlyOwner() {
-        msg.sender == owner;
+        require(msg.sender == owner, "Not the owner");
         _;
     }
 
@@ -153,8 +153,8 @@ contract Challenge10 {
         require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
         unchecked {
             _balances[account] = accountBalance - amount;
-            _totalSupply -= amount;
         }
+        _totalSupply -= amount;
 
         emit Transfer(account, address(0), amount);
     }
