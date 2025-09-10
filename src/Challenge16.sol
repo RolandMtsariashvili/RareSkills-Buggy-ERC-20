@@ -68,6 +68,7 @@ contract Challenge16 {
     }
 
     function approve(address spender, uint256 value) public returns (bool) {
+        _approve(msg.sender, spender, value);
         emit Approval(msg.sender, spender, value);
         return true;
     }
