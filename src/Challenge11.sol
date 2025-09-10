@@ -76,7 +76,7 @@ contract Challenge11 {
         _transfer(from, to, value);
         uint256 currentAllowance = _allowances[from][msg.sender];
         require(currentAllowance >= value, "Insufficient allowance");
-        _allowances[msg.sender][from] = currentAllowance - value;
+        _allowances[from][msg.sender] = currentAllowance - value;
         return true;
     }
 
