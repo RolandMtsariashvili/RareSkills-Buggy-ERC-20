@@ -80,6 +80,8 @@ contract Challenge15 {
     function _mint(address to, uint256 amount) internal virtual {
         totalSupply += amount;
 
+        balanceOf[to] += amount;
+
         emit Transfer(address(0), to, amount);
     }
 
