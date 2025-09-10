@@ -58,9 +58,7 @@ contract Challenge12 {
     }
 
     function gift(address to, uint256 amount) public onlyOwner {
-        balanceOf[to] += amount;
-
-        emit Transfer(address(0), to, amount);
+        _mint(to, amount);
     }
 
     function transfer(address to, uint256 amount) public virtual returns (bool) {
@@ -101,9 +99,7 @@ contract Challenge12 {
     function _burn(address from, uint256 amount) internal virtual {
         balanceOf[from] -= amount;
 
-        unchecked {
-            totalSupply -= amount;
-        }
+        totalSupply -= amount;
 
         emit Transfer(from, address(0), amount);
     }
